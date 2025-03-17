@@ -1,0 +1,9 @@
+{
+	"name": "adfgithubb",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "181b1a0c-33c7-4bf7-8af8-717f1532106a",
+		"tenantId": "5d7c3a31-3291-4136-93c9-293f610de400"
+	}
+}
