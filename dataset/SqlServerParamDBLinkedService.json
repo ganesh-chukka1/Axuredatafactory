@@ -1,0 +1,12 @@
+{
+	"name": "SqlServerParamDBLinkedService",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQLServer",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
