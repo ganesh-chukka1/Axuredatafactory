@@ -66,7 +66,13 @@
 				"outputs": [
 					{
 						"referenceName": "TargetParamDataSet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetFolder": {
+								"value": "@pipeline().parameters.TargetFolderName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
