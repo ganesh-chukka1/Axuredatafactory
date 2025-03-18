@@ -1,0 +1,30 @@
+{
+	"name": "TargetParamDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ParamFolderBlobLink",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TargetFolder": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@dataset().TargetFolder",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
