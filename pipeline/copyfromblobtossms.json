@@ -27,9 +27,15 @@
 						}
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
 					"enableStaging": false,
 					"translator": {
@@ -59,18 +65,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SqlServerParamDBLinkedService",
-						"type": "DatasetReference",
-						"parameters": {
-							"DBName": {
-								"value": "@pipeline().parameters.DataBaseName",
-								"type": "Expression"
-							},
-							"TableName": {
-								"value": "@pipeline().parameters.TableName",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "DatasetParamFolder",
+						"type": "DatasetReference"
 					}
 				]
 			}
