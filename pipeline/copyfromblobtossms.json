@@ -13,7 +13,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.ContainerName}/@{pipeline().parameters.FolderName}/@{pipeline().parameters.FileName}"
+					},
+					{
+						"name": "Destination",
+						"value": "@{pipeline().parameters.ContainerName}/@{pipeline().parameters.TargetFolderName}/"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
@@ -89,14 +98,6 @@
 			"FolderName": {
 				"type": "string",
 				"defaultValue": "Input"
-			},
-			"DataBaseName": {
-				"type": "string",
-				"defaultValue": "azurelink"
-			},
-			"TableName": {
-				"type": "string",
-				"defaultValue": "cust"
 			},
 			"FileName": {
 				"type": "string",
