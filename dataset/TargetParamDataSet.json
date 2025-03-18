@@ -8,6 +8,9 @@
 		"parameters": {
 			"TargetFolder": {
 				"type": "string"
+			},
+			"Container": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -17,6 +20,10 @@
 				"type": "AzureBlobStorageLocation",
 				"folderPath": {
 					"value": "@dataset().TargetFolder",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().Container",
 					"type": "Expression"
 				}
 			},

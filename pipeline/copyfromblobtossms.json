@@ -71,6 +71,10 @@
 							"TargetFolder": {
 								"value": "@pipeline().parameters.TargetFolderName",
 								"type": "Expression"
+							},
+							"Container": {
+								"value": "@pipeline().parameters.ContainerName",
+								"type": "Expression"
 							}
 						}
 					}
@@ -97,6 +101,10 @@
 			"TargetFolderName": {
 				"type": "string",
 				"defaultValue": "Output"
+			},
+			"ContainerName": {
+				"type": "string",
+				"defaultValue": "adbdatalake"
 			}
 		},
 		"annotations": []

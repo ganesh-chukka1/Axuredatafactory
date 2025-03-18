@@ -11,6 +11,9 @@
 			},
 			"SourceFolderName": {
 				"type": "string"
+			},
+			"Container": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -23,10 +26,13 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "@dataset().TargetFolderName",
+					"value": "@dataset().SourceFolderName",
 					"type": "Expression"
 				},
-				"container": "adbdatalake"
+				"container": {
+					"value": "@dataset().Container",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\"",
