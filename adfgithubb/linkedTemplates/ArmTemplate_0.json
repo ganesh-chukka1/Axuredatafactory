@@ -535,7 +535,7 @@
 					},
 					"FileName": {
 						"type": "string",
-						"defaultValue": "Customers_@{formatDateTime(utcnow(), 'yyyyMMdd')}.csv"
+						"defaultValue": "Customers_20241023.csv"
 					},
 					"TargetFolderName": {
 						"type": "string",
