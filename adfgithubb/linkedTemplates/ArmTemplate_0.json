@@ -107,6 +107,16 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SelfhostedintegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DatasetParamFolder')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -120,6 +130,9 @@
 						"type": "String"
 					},
 					"SourceFolderName": {
+						"type": "string"
+					},
+					"Container": {
 						"type": "string"
 					}
 				},
@@ -136,7 +149,10 @@
 							"value": "@dataset().SourceFolderName",
 							"type": "Expression"
 						},
-						"container": "adbdatalake"
+						"container": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\"",
@@ -277,6 +293,48 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/TargetParamDataSet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ParamFolderBlobLink",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TargetFolder": {
+						"type": "string"
+					},
+					"Container": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": {
+							"value": "@dataset().TargetFolder",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ParamFolderBlobLink')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Demowait')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -401,9 +459,15 @@
 								}
 							},
 							"sink": {
-								"type": "SqlServerSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
 							},
 							"enableStaging": false,
 							"translator": {
@@ -427,21 +491,25 @@
 									"SourceFolderName": {
 										"value": "@pipeline().parameters.FolderName",
 										"type": "Expression"
+									},
+									"Container": {
+										"value": "@pipeline().parameters.ContainerName",
+										"type": "Expression"
 									}
 								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "SqlServerParamDBLinkedService",
+								"referenceName": "TargetParamDataSet",
 								"type": "DatasetReference",
 								"parameters": {
-									"DBName": {
-										"value": "@pipeline().parameters.DataBaseName",
+									"TargetFolder": {
+										"value": "@pipeline().parameters.TargetFolderName",
 										"type": "Expression"
 									},
-									"TableName": {
-										"value": "@pipeline().parameters.TableName",
+									"Container": {
+										"value": "@pipeline().parameters.ContainerName",
 										"type": "Expression"
 									}
 								}
@@ -468,13 +536,21 @@
 					"FileName": {
 						"type": "string",
 						"defaultValue": "Customers_@{formatDateTime(utcnow(), 'yyyyMMdd')}.csv"
+					},
+					"TargetFolderName": {
+						"type": "string",
+						"defaultValue": "Output"
+					},
+					"ContainerName": {
+						"type": "string",
+						"defaultValue": "adbdatalake"
 					}
 				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DatasetParamFolder')]",
-				"[concat(variables('factoryId'), '/datasets/SqlServerParamDBLinkedService')]"
+				"[concat(variables('factoryId'), '/datasets/TargetParamDataSet')]"
 			]
 		},
 		{
