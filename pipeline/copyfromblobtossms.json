@@ -77,16 +77,20 @@
 		],
 		"parameters": {
 			"FolderName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Input"
 			},
 			"DataBaseName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "azurelink"
 			},
 			"TableName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "cust"
 			},
 			"FileName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Customers_@{formatDateTime(utcnow(), 'yyyyMMdd')}.csv"
 			}
 		},
 		"annotations": []
