@@ -11,6 +11,21 @@
 		"AzureBlobStorage2_connectionString": {
 			"value": ""
 		},
+		"ParamFolderBlobLink_connectionString": {
+			"value": ""
+		},
+		"SQLServer_password": {
+			"value": ""
+		},
+		"SQLServer_properties_typeProperties_server": {
+			"value": "192.168.31.217\\CHUKKASQLSERVER"
+		},
+		"SQLServer_properties_typeProperties_database": {
+			"value": "@{linkedService().DataBaseName}"
+		},
+		"SQLServer_properties_typeProperties_userName": {
+			"value": "sa"
+		},
 		"containerUri": {
 			"value": ""
 		},
