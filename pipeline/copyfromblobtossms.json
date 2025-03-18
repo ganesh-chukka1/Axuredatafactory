@@ -56,7 +56,17 @@
 				"outputs": [
 					{
 						"referenceName": "SqlServerParamDBLinkedService",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"DBName": {
+								"value": "@pipeline().parameters.DataBaseName",
+								"type": "Expression"
+							},
+							"TableName": {
+								"value": "@pipeline().parameters.TableName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
