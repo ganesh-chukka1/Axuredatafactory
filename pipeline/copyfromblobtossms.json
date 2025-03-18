@@ -65,7 +65,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DatasetParamFolder",
+						"referenceName": "TargetParamDataSet",
 						"type": "DatasetReference"
 					}
 				]
@@ -87,6 +87,10 @@
 			"FileName": {
 				"type": "string",
 				"defaultValue": "Customers_@{formatDateTime(utcnow(), 'yyyyMMdd')}.csv"
+			},
+			"TargetFolderName": {
+				"type": "string",
+				"defaultValue": "Output"
 			}
 		},
 		"annotations": []
