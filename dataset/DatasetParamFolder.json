@@ -11,9 +11,6 @@
 			},
 			"SourceFolderName": {
 				"type": "string"
-			},
-			"TargetFolderName": {
-				"type": "string"
 			}
 		},
 		"annotations": [],
