@@ -1,0 +1,35 @@
+{
+	"name": "PeopleData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "PeopleDataset",
+						"type": "DatasetReference"
+					},
+					"name": "PeopleSourceData"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          Index as string,",
+				"          {User Id} as string,",
+				"          {First Name} as string,",
+				"          {Last Name} as string,",
+				"          Sex as string,",
+				"          Email as string,",
+				"          Phone as string,",
+				"          {Date of birth} as string,",
+				"          {Job Title} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> PeopleSourceData"
+			]
+		}
+	}
+}
