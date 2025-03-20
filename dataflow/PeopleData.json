@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "ErrorRows"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          Index as string,",
@@ -28,7 +32,9 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> PeopleSourceData"
+				"     ignoreNoFilesFound: false) ~> PeopleSourceData",
+				"PeopleSourceData split(toDate({Date of birth}, 'DD-MM-yyyy', 'NULL'),",
+				"     disjoint: false) ~> ErrorRows@(BadData, GoodData)"
 			]
 		}
 	}
