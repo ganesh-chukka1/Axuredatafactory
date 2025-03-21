@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -67,6 +68,14 @@
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"recursive": true,
+										"wildcardFolderPath": {
+											"value": "@pipeline().parameters.SourceFolderName",
+											"type": "Expression"
+										},
+										"wildcardFileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -117,6 +126,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"SourceFolderName": {
+				"type": "string",
+				"defaultValue": "Input"
+			}
+		},
 		"annotations": []
 	}
 }
